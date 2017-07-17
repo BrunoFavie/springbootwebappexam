@@ -5,9 +5,9 @@ import guru.springframework.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @Controller
 public class ProductController {
@@ -19,6 +19,7 @@ public class ProductController {
         this.productService = productService;
     }
 
+//Get all products for website
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String list(Model model) throws OutOfMemoryError{
         try {
@@ -31,10 +32,24 @@ public class ProductController {
         return "products";
     }
 
+    //Get all products in JSON format for mobile app.
+    @ResponseBody
+    @RequestMapping(value = "api/product/all", method = RequestMethod.GET)
+    public Iterable<Product> getAll() throws OutOfMemoryError {
+        return productService.listAllProducts();
+    }
+
     @RequestMapping("product/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getProductById(id));
         return "productshow";
+    }
+
+    //Get Single product by Id value in JSON format for mobile app.
+    @ResponseBody
+    @RequestMapping(value = "api/product/get", method = RequestMethod.GET)
+    public Product getProduct(@RequestParam Integer id) {
+        return productService.getProductById(id);
     }
 
     @RequestMapping("product/edit/{id}")

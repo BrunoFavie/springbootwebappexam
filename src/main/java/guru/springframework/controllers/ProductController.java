@@ -20,11 +20,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String list(Model model){
-        model.addAttribute("products", productService.listAllProducts());
-        System.out.println("Returning products:");
-        throw new OutOfMemoryError();
-        //return "products";
+    public String list(Model model) throws OutOfMemoryError{
+        try {
+            model.addAttribute("products", productService.listAllProducts());
+            System.out.println("Returning products:");
+        }
+        catch(OutOfMemoryError e){
+            throw new OutOfMemoryError("Memory ran out while loading products");
+        }
+        return "products";
     }
 
     @RequestMapping("product/{id}")

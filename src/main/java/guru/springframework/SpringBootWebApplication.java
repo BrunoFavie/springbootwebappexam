@@ -8,6 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootWebApplication {
 
     public static void main(String[] args) {
-        new SpringBootStarter().StartWebApplication();
+        try {
+            SpringApplication.run(SpringBootWebApplication.class, args);
+        } catch (Exception e){
+            new SpringBootStarter().StartWebApplication();
+        }
     }
 }

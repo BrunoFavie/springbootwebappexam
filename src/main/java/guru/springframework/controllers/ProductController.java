@@ -32,7 +32,7 @@ public class ProductController {
         return "products";
     }
 
-    //Get all products in JSON format for mobile app.
+    //Get all products in JSON format using REST API for mobile application
     @ResponseBody
     @RequestMapping(value = "api/product/all", method = RequestMethod.GET)
     public Iterable<Product> getAll() throws OutOfMemoryError {
@@ -45,7 +45,7 @@ public class ProductController {
         return "productshow";
     }
 
-    //Get Single product by Id value in JSON format for mobile app.
+    //Get Single product by Id value in JSON format using REST API for mobile application
     @ResponseBody
     @RequestMapping(value = "api/product/get", method = RequestMethod.GET)
     public Product getProduct(@RequestParam Integer id) {
@@ -58,10 +58,25 @@ public class ProductController {
         return "productform";
     }
 
+    //Adding new product using website
     @RequestMapping("product/new")
     public String newProduct(Model model){
         model.addAttribute("product", new Product());
         return "productform";
+    }
+
+    //Adding new product using REST API for mobile application
+    @ResponseBody
+    @RequestMapping(value = "api/product/add", method = RequestMethod.POST)
+    public Boolean add(@RequestBody Product product){
+        Boolean success = false;
+        try {
+            productService.saveProduct(product);
+            success = true;
+
+        }catch(Exception e){
+        }
+        return success;
     }
 
     @RequestMapping(value = "product", method = RequestMethod.POST)

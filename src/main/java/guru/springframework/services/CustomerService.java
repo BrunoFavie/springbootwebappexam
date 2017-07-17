@@ -2,7 +2,7 @@ package guru.springframework.services;
 
 import guru.springframework.domain.Guest;
 
-public interface GuestService {
+public interface CustomerService {
 
     Iterable<Guest> listAllGuests();
 

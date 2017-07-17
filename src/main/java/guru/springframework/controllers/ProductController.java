@@ -32,17 +32,42 @@ public class ProductController {
         return "products";
     }
 
+    @RequestMapping("product/{id}")
+    public String showProduct(@PathVariable Integer id, Model model){
+        model.addAttribute("product", productService.getProductById(id));
+        return "productshow";
+    }
+
+    // editing product using webapplication
+    @RequestMapping("product/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+        model.addAttribute("product", productService.getProductById(id));
+        return "productform";
+    }
+
+
+    //Adding new product using website
+    @RequestMapping("product/new")
+    public String newProduct(Model model){
+        model.addAttribute("product", new Product());
+        return "productform";
+    }
+
+
+
+    @RequestMapping(value = "product", method = RequestMethod.POST)
+    public String saveProduct(Product product){
+
+        productService.saveProduct(product);
+
+        return "redirect:/product/" + product.getId();
+    }
+
     //Get all products in JSON format using REST API for mobile application
     @ResponseBody
     @RequestMapping(value = "api/product/all", method = RequestMethod.GET)
     public Iterable<Product> getAll() throws OutOfMemoryError {
         return productService.listAllProducts();
-    }
-
-    @RequestMapping("product/{id}")
-    public String showProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
-        return "productshow";
     }
 
     //Get Single product by Id value in JSON format using REST API for mobile application
@@ -52,23 +77,34 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
-    @RequestMapping("product/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
-        return "productform";
-    }
-
-    //Adding new product using website
-    @RequestMapping("product/new")
-    public String newProduct(Model model){
-        model.addAttribute("product", new Product());
-        return "productform";
-    }
-
     //Adding new product using REST API for mobile application
     @ResponseBody
     @RequestMapping(value = "api/product/add", method = RequestMethod.POST)
     public Boolean add(@RequestBody Product product){
+        Boolean success = false;
+        Boolean exists = false;
+        //check existing records
+        for (Product p:productService.listAllProducts()) {
+            if ( p.getId() == product.getId()){
+                exists = true;
+            }
+        }
+
+        if(!exists){
+            try {
+                productService.saveProduct(product);
+                success = true;
+
+            }catch(Exception e){
+            }
+        }
+        return success;
+    }
+
+    // editing product using REST API for mobile application
+    @ResponseBody
+    @RequestMapping("api/product/edit")
+    public Boolean edit(@RequestBody Product product){
         Boolean success = false;
         try {
             productService.saveProduct(product);
@@ -77,14 +113,6 @@ public class ProductController {
         }catch(Exception e){
         }
         return success;
-    }
-
-    @RequestMapping(value = "product", method = RequestMethod.POST)
-    public String saveProduct(Product product){
-
-        productService.saveProduct(product);
-
-        return "redirect:/product/" + product.getId();
     }
 
 }

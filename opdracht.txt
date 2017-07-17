@@ -4,17 +4,17 @@ Als eerste, dit project ziet er iets anders uit dan je gewend bent, binnen dit p
 
 De applicatie is een website waarin medewerkers van een t-shirt winkel hun productcatalogus kunnen beheren. Tot nu toe is het bedrijf "Leuke Tshirts BV" erg tevreden over de applicatie alleen nadat de directeur zijn neefje er aan heeft laten werken wil de applicatie niet meer werken.
 
-Het is nu jouw taak om dit te fixen!
+Het is nu jouw taak om dit te fixen! (DONE)
 
 Nadat je de applicatie werkend hebt gekregen willen we hem graag uitgebreid zien. De directeur heeft namelijk besloten dat hij graag een mobiele applicatie wilt, deze mobiele applicatie wordt ontwikkeld door een extern bedrijf maar aan jou is gevraagd de API's (rest services) te ontwikkelen.
 
 Ontwikkel de volgende services:
 
-- Toon alle producten
-- Toon enkel product
-- Voeg nieuw product toe
-- Update product
-- Verwijder product
+- Toon alle producten (DONE)
+- Toon enkel product (DONE)
+- Voeg nieuw product toe (DONE)
+- Update product (DONE)
+- Verwijder product (DONE)
 
 De service zal getest worden door middel van "Postman" en alle communicatie tussen Postman en de webapplicatie moet via JSON formaat.
 

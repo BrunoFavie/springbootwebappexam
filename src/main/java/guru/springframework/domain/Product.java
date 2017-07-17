@@ -16,6 +16,7 @@ public class Product {
     private String description;
     private String imageUrl;
     private BigDecimal price;
+    private Integer supply;
 
     public String getDescription() {
         return description;
@@ -64,4 +65,8 @@ public class Product {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public Integer getSupply() { return supply; }
+
+    public void setSupply(Integer supply) {this.supply = supply;}
 }

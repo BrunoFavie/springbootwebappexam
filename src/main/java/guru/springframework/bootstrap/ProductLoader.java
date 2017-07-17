@@ -28,6 +28,7 @@ public class ProductLoader implements ApplicationListener<ContextRefreshedEvent>
         Product shirt = new Product();
         shirt.setDescription("Evil Java");
         shirt.setPrice(new BigDecimal("18.95"));
+        shirt.setSupply(5);
         shirt.setImageUrl("http://cdn.quotesgram.com/img/76/60/66849369-mens-round-neck-black-funny-t-shirt-java-evil-900x900.jpg");
         shirt.setProductId("235268845711068308");
         productRepository.save(shirt);
@@ -39,6 +40,7 @@ public class ProductLoader implements ApplicationListener<ContextRefreshedEvent>
         shirt2.setImageUrl("https://ih1.redbubble.net/image.253091624.3999/fc,550x550,charcoal_heather.u2.jpg");
         shirt2.setProductId("168639393495335947");
         shirt2.setPrice(new BigDecimal("11.95"));
+        shirt2.setSupply(8);
         productRepository.save(shirt2);
 
         log.info("Saved Mug - id:" + shirt2.getId());
